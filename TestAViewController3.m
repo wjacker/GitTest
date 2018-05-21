@@ -23,7 +23,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
     
-    self.view.hidden = NO;
+    //self.view.hidden = NO;
 }
 
 /*
