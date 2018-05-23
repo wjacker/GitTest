@@ -1,10 +1,10 @@
-#Haier Objective C++ 开发规范
+# Haier Objective C++ 开发规范
 
-##前言
+## 前言
 本规范主要是针对Haier内部iOS开发的Objective C++的开发规范，主要目的是为了统一开发风格，提高代码质量，保证app的稳定性。本规范主要参考 [一份走心的iOS开发规范](https://www.jianshu.com/p/c818c00e0690) 并在此基础上进行了部分规则的修正以及调整。
 
 
-##约定
+## 约定
 
 开发规范像是一条可供参考的标准线。不同开发者可以根据这条标准线来规范自己的开发行为，尤其是在大的项目中，开发规范可以约束不同开发者的开发风格，使项目从细节到整体上都能达到风格统一，利于维护。
 本文的开发规范由很多item组成，不同的item描述了不同的问题。每一个item就是一条具体的开发规范，违反不同的开发规范，也会引起不同严重程度的后果。就像法律和道德的差异一样，我们必须遵守法律，不然可能带来损人不利己的严重后果，但有些人虽然没有触犯法律，却违背了道德，虽然暂时没有产生严重的后果，长此以往，也会形成一种坏的风气。所以，无论法律和道德，我们都该鞭策自己成为优秀的人，而不该止步于一个合格的人。同理，开发规范也是如此，我们必须遵守那些必须要遵守的开发规范，提倡遵守那些建议你遵守的开发规范。所以，根据约束力度，我们把开发规范暂时划分成两个等级，分别是【必须】、【建议】。
@@ -14,10 +14,10 @@
 
 [TOC]
 
-##1 命名规范
+## 1 命名规范
 根据Cocoa编码规范里的描述，以前情况下，命名应该遵循以下基本原则：Clarity、Consistency、No Self Reference。即清晰性、一致性、不要自我指涉 [Code Naming Basics](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingBasics.html)。
 
-###(1.1) 通用命名规则
+### (1.1) 通用命名规则
 一般情况下，通用命名规则适用于变量、常量、属性、参数、方法、函数等。当然也有例外，下面我们会针对于每一种情况一一列举。
 
 【必须】自我描述性。属性/函数/参数/变量/常量/宏 的命名必须具有自我描述性。杜绝中文拼音、过度缩写、或者无意义的命名方式。
@@ -58,14 +58,14 @@ property (readonly) NSUInteger count;
 
 【建议】一般情况下，不要缩写或省略单词，建议拼写出来，即使它有点长。当然，在保证可读性的同时，for循环中遍历出来的对象或者某些方法的参数可以缩写。
 
-| 命名	| 说明 |
+| 命名    | 说明 |
 | :------ | :------ |
 |destinationSelection | 规范写法 |
 |destSel | 不清晰 |
 |setBackgroundColor: | 规范写法 |
 |setBkgdColor: | 不清晰 |
 
-###(1.2) 缩写规范
+### (1.2) 缩写规范
 通常，我们都不应该缩写命名(参考[General Principles](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingBasics.html#//apple_ref/doc/uid/20001281-1001751))。然而，下面所列举的都是一些众所周知的缩写，我们可以继续使用这些古老的缩写。在其他情况下，我们需要遵循下面两条缩写建议：
 
 * 允许使用那些在C语言时代就已经在使用的缩写，比如alloc和getc。
@@ -73,7 +73,7 @@ property (readonly) NSUInteger count;
 
 我们也可以使用计算机行业通用的缩写。包括但不限于HTML、URL、RTF、HTTP、TIFF、JPG、PNG、GIF、LZW、ROM、RGB、CMYK、MIDI、FTP。
 
-###(1.3) Method命名规范
+### (1.3) Method命名规范
 【必须】方法名也要采用小写字母开头的驼峰命名方式。如果方法名以一个中所周知的大写缩略词开头（比如HTTP），该规则可以忽略。
 
 【建议】一般情况下，不要在方法名称中使用前缀，因为他存在于特定类的命名空间中。
@@ -104,7 +104,7 @@ property (readonly) NSUInteger count;
 【必须】如果方法返回接收者的某个属性，那么请直接以属性名作为方法名。如果方法间接的返回一个或多个值，我们可以使用“getxxx”的方式来命名方法。相反，无需额外的在方法名前面添加"get"。
 
 
-| 命名	| 说明 |
+| 命名    | 说明 |
 | :------ | :------ |
 |- (NSSize)cellSize; | 规范的写法 |
 |- (NSSize)calcCellSize; | 不规范 |
@@ -121,20 +121,21 @@ property (readonly) NSUInteger count;
 
 【必须】所有参数前面都应该添加关键字，除非你能保证每个人都能意会到你的精神。
 
-| 命名	| 说明 |
+| 命名    | 说明 |
 | :------ | :------ |
 |- (void)sendAction:(SEL)aSelector toObject:(id)anObject forAllCells:(BOOL)flag; | 规范的写法 |
 |- (void)sendAction:(SEL)aSelector :(id)anObject :(BOOL)flag; | 不规范 |
 
 【建议】苹果爸爸说：参数之前的单词尽量能描述参数的意义。
-| 命名	| 说明 |
+
+| 命名    | 说明 |
 | :------ | :------ |
 |- (id)viewWithTag:(NSInteger)aTag; | 规范的写法 |
 |- (id)taggedView:(int)aTag; | 不规范 |
 
 【必须】如果当前子类创建的方法比从父类继承来的方法更加具体明确。本身提供的方法更具有针对性。则不该重写类本身提供的方法。而是应该单独的提供一个方法，并在新的方法后面添加上必要的关键参数。
 
-| 命名	| 说明 |
+| 命名    | 说明 |
 | :------ | :------ |
 |- (id)initWithFrame:(CGRect)frameRect;| NSView, UIView. |
 |- (id)initWithFrame:(NSRect)frameRect mode:(int)aMode cellClass:(Class)factoryId numberOfRows:(int)rowsHigh numberOfColumns:(int)colsWide; | NSMatrix, a subclass of NSView |
@@ -147,14 +148,14 @@ property (readonly) NSUInteger count;
 ```
 【必须】请不要使用“and”连接接收者属性。尽管and在下面的例子中读起来还算顺口，但随着你创建的方法参数的增加，这将会带来一系列的问题。
 
-| 命名	| 说明 |
+| 命名    | 说明 |
 | :------ | :------ |
 |- (int)runModalForDirectory:(NSString *)path file:(NSString *) name types:(NSArray *)fileTypes; | 规范的写法 |
 |- (int)runModalForDirectory:(NSString *)path andFile:(NSString *)name andTypes:(NSArray *)fileTypes; | 不规范 |
 
 【建议】如果一个方法描述了两个独立的动作，最好可以拆开成两个方法
 
-###(1.4) Accessor命名规范
+### (1.4) Accessor命名规范
 Accessor Methods是指set、get方法。这些方法有一些推荐写法格式：
 【建议】如果属性非Bool类型，推荐格式如下：
 
@@ -177,7 +178,7 @@ Accessor Methods是指set、get方法。这些方法有一些推荐写法格式�
 
 【建议】可以使用情态动词（can、should、will等）明确方法意义，但不要使用do、does这类无意义的情态动词。
 
-| 命名	| 说明 |
+| 命名    | 说明 |
 | :------ | :------ |
 | - (void)setCanHide:(BOOL)flag; | OK |
 | - (BOOL)canHide; | OK |
@@ -222,7 +223,7 @@ delegate methods 又叫做delegation methods，如果delegate对象实现了另�
 - (BOOL)windowShouldClose:(id)sender;
 ```
 
-###(1.6) Private方法命名规范
+### (1.6) Private方法命名规范
 大部分情况下，私有方法的命名和公有方法的命名规则是一样的。然而，通常情况下应该给私有方法添加一个前缀，目的是和公有方法区分开。尽管这样，这种给私有方法加前缀的命名方式有可能引起一些奇怪的问题。问题就是：当你从Cocoa framework（即Cocoa系统库）中的某个类派生出来一个子类时，你并不知道你的子类中定义的私有方法是否覆盖了父类的私有方法，即有可能你自己在子类中实现的私有方法和父类中的某个私有方法同名。在运行时，这极有可能导致一些莫名其妙的问题，并且调试追踪问题的难度也是相当大。
 Cocoa frameworks（Cocoa系统库）中的私有方法通常以一个下划线“ _ ”开头，用于标记这些方法是私有的(比如， _fooData ) 。不要问我为什么他们这么做，这大概就是Apple工程师的开发习惯。基于这个事实，提供以下两条建议：
 
@@ -248,32 +249,32 @@ Cocoa frameworks（Cocoa系统库）中的私有方法通常以一个下划线�
 - (BOOL)tableViewSholdScroll:(id)sender;
 ```
 
-###(1.7) Category命名规范
+### (1.7) Category命名规范
 【必须】避免category中的方法覆盖系统方法。可以使用前缀来区分系统方法和category方法。但前缀不要仅仅使用下划线”_“。
 
 【建议】category中不要声明属性和成员变量。
 
 【建议】如果一个类比较复杂，建议使用category的方式组织代码。具体可以参考UIView。
 
-###(1.8) Class命名规范
+### (1.8) Class命名规范
 【必须】class的名称应该由两部分组成，前缀+名称。即，class的名称应该包含一个前缀和一个名词。
 
-###(1.9) Protocol命名规范
+### (1.9) Protocol命名规范
 【建议】有时候protocol只是声明了一堆相关方法，并不关联class。这种不关联class的protocol使用ing形式以和class区分开来。比如NSLocking而非NSLock。
 
-| 命名	| 说明 |
+| 命名    | 说明 |
 | :------ | :------ |
 | NSLocking | OK |
 | NSLock | 不好，看起来像是一个类名 |
 
 【建议】如果proctocol不仅声明了一堆相关方法，还关联了某个class。这种关联class的protocol的命名取决于关联的class，然后再后面再加上protocol或delegate用于显示的声明这是一份协议。
 
-| 命名	| 说明 |
+| 命名    | 说明 |
 | :------ | :------ |
 | UITableViewDelegate | OK |
 | NSObjectProtocol | OK |
 
-###(1.10) Notification命名规范
+### (1.10) Notification命名规范
 【建议】苹果爸爸说：如果一个类声明了delegate属性，通常情况下，这个类的delegate对象可以通过实现的delegate方法收到大部分通知消息。那么，这些通知的名称应该反映出对应的delegate方法。比如，application对象发送的`NSApplicationDidBecomeActiveNotification`通知和对应的`applicationDidBecomeActive:`消息。其实，这也算是命名的一致性要求。
 
 【必须】notification的命名使用全局的NSString字符串进行标识。命名方式如下：
@@ -298,9 +299,9 @@ UIKeyboardWillChangeFrameNotification;
 UIKeyboardDidChangeFrameNotification;
 ```
 
-###(1.11) Constant命名规范
+### (1.11) Constant命名规范
 
-####(1.11.1) 枚举常量
+#### (1.11.1) 枚举常量
 【必须】使用枚举类型来表示一组相关的整型常量。
 
 【建议】枚举常量和typedef定义的枚举类型的命名规范同函数的命名规范一致。（参考 [Naming Functions](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingFunctions.html#//apple_ref/doc/uid/20001283-BAJGGCAD)）
@@ -325,13 +326,13 @@ typedef NS_OPTIONS(NSUInteger, UIViewAutoresizing) {
     UIViewAutoresizingFlexibleBottomMargin = 1 << 5
 };
 ```
-####(1.11.2) 使用const关键字创建常量
+#### (1.11.2) 使用const关键字创建常量
 【必须】使用const关键字创建浮点型常量。你也可以使用const来创建和其他常量不相关的整型常量。否则，请使用枚举类型来创建。即，如果一个整型常量和其他常量不相关，可以使用const来创建，否则，使用枚举类型表示一组相关的整型常量。
 以下例子声明了const常量的格式：
 ```objc
 const float NSLightGray;
 ```
-####(1.11.3) 其他常量类型
+#### (1.11.3) 其他常量类型
 【必须】通常情况下，不要使用`#define`预处理命令(preprocessor command)创建常量。正如上面所说，对于整型常量，使用枚举创建；对于浮点型常量，使用const修饰符创建。
 【必须】有些符号需要使用大写字母标识。预处理器需要根据这个符号进行计算以便决定是否要对某一块代码进行处理。比如：
 ```objc
@@ -373,9 +374,9 @@ NSFontUnavailableException
 NSIllegalSelectorException
 ```
 
-##(二)编码规范
+## (二)编码规范
 
-###(2.1) Initialize规范
+### (2.1) Initialize规范
 [Tips and Techniques for Framework Developers](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/FrameworkImpl.html)
 
 (void)initialize类方法先于其他的方法调用。且initialize方法给我们提供了一个让代码once、lazy执行的地方。initialize通常被用于设置class的版本号(参考 Versioning and Compatibility)。
@@ -405,7 +406,7 @@ initialize是由系统自动调用的方法，我们不应该显示或手动调�
 [NSImage self];
 ```
 
-###(2.2 )Init方法规范
+### (2.2 )Init方法规范
 Objective-C有designated Initializers和secondary Initializers的概念。designated Initializers叫做指定初始化方法。《Effective Objective-C 2.0 编写高质量iOS 与 OS X代码的52个有效方法》中将designated Initializers翻译为”全能初始化方法“。designated Initializers方法是指类中为对象提供必要信息以便其能完成工作的初始化方法。一个类可以有一个或者多个designated Initializers。但是要保证所有的其他secondary initializers都要调用designated Initializers。即：只有designated Initializers才会存储对象的信息。这样的好处是：当这个类底层的某些数据存储机制发生变化时(可能是一些property的变更)，只需要修改这个designated Initializers内部的代码即可。无需改动其他secondary Initializers初始化方法的代码
 
 必须】所有secondary 初始化方法都应该调用designated 初始化方法。
@@ -468,7 +469,7 @@ Objective-C有designated Initializers和secondary Initializers的概念。design
 
 【必须】另外禁止在init方法中使用self.xxx的方式访问属性。如果存在继承的情况下，很有可能导致崩溃。详见：[《为什么不能在init和dealloc函数中使用accessor方法》](https://www.jianshu.com/p/3cf3f5007243)
 
-###(2.3) Init error
+### (2.3) Init error
 一个好的初始化方法应该具备以下几个方面，在初始化阶段就能够发现错误并给予处理，也就是初始化方法应该具备一些必要的容错功能。
 
 【必须】调用父类的designated初始化方法初始化本类的对象。
@@ -491,14 +492,14 @@ Objective-C有designated Initializers和secondary Initializers的概念。design
     return self;
 }
 ```
-###(2.4) dealloc规范
+### (2.4) dealloc规范
 【必须】不要忘记在dealloc方法中移除通知和KVO。
 注意： 通知跟KVO的监听跟销毁应该是成对出现的，例如：在`viewWillAppear:  | viewDidAppear:` 里添加的通知，应该在`viewWillDisappear: | viewDidDisappear: `中销毁， `init: `里添加的通知，应该在`dealloc`方法中销毁
 
-###(2.5) block规范
+### (2.5) block规范
 【必须】注意block潜在的引用循环。
 
-###(2.6) Notification规范
+### (2.6) Notification规范
 前面在命名规范一章中已经介绍了通知的命名规范，这里解释的是通知的使用规范。
 通知作为观察者模式的一个落地产物，在开发中能够实现一对多的通信。所有可以使用delegate和block实现的通信和传值，都可以使用通知实现。正因通知如此灵活，我们更应该弄清楚通知适合使用的场景，避免把通知和delegate以及block等进行混淆。
 通知是一把双刃剑，让你欢喜让你忧。开发中，当你走投无路将要崩溃时，可以考虑使用通知；而当你频繁使用通知时，同样会让你崩溃到走投无路。所以，在每个应用中，我们应该时刻留意并控制通知的数量，避免通知满天飞的现象。
@@ -513,7 +514,7 @@ Objective-C有designated Initializers和secondary Initializers的概念。design
 
 注意：NoticiationCenter是以同步（非异步，当前线程，会等待，会阻塞）的方式发送请求。即，当post通知时，center会一直等待所有的observer都收到并且处理了通知才会返回到poster。如果需要异步发送通知，请使用notificationQueue，在一个多线程的应用中，通知会发送到所有的线程中。
 
-###(2.7) UI规范
+### (2.7) UI规范
 
 【必须】如果想要获取window，不要使用view.window获取。请使用`[[UIApplication sharedApplication] keyWindow]`。
 
@@ -535,13 +536,13 @@ CGFloat width = CGRectGetWidth(frame);
 CGFloat height = CGRectGetHeight(frame);
 ```
 
-###(2.8) IO规范
+### (2.8) IO规范
 【建议】尽量少用NSUserDefaults。
 说明：[[NSUserDefaults standardUserDefaults] synchronize] 会block住当前线程，知道所有的内容都写进磁盘，如果内容过多，重复调用的话会严重影响性能。
 
 【建议】一些经常被使用的文件建议做好缓存。避免重复的IO操作。建议只有在合适的时候再进行持久化操作。
 
-###(2.9) Collection规范
+### (2.9) Collection规范
 
 【必须】不要用一个可能为nil的对象初始化集合对象，否则可能会导致crash。
 
@@ -601,7 +602,7 @@ if (obj && [obj isKindOfClass:[NSObject class]]) {
 @property(nonatomic, strong) NSMutableDictionary<NSString *,NSString *> *dictionary;
 ```
 
-###(2.10) 分支语句规范
+### (2.10) 分支语句规范
 【建议】if条件判断语句后面必须要加大括号{}。不然随着业务的发展和代码迭代，极有可能引起逻辑问题。
 ```objc
 // 建议
@@ -651,10 +652,10 @@ if (isAwesome == YES) { }
 
 【建议】`switch...case...`语句的每个`case`后不要丢失必要的`break`关键字，避免出现fall-through
 
-###(2.11) 对象判等规范
+### (2.11) 对象判等规范
 isEqual:方法允许我们传入任意类型的对象作为参数，如果参数类型和receiver(方法调用者)类型不一致，会返回NO。而isEqualToString:和isEqualToArray:这两个方法会假设参数类型和receiver类型一致，也就是说，这两个方法不会对参数进行类型检查。因此这两个方法性能更好但不安全。如果我们是从外部数据源(比如info.plist或preferences)获取的数据，那么推荐使用isEqual:，因为这样更安全。如果我们知道参数的确切类型，那么可以使用类似于isEqualToString:这样的方法，因为性能更好。
 
-###(2.12) 多线程规范
+### (2.12) 多线程规范
 
 【建议】仅当必须保证顺序执行时才使用dispatch_sync，否则容易出现死锁，应避免使用，可使用dispatch_async。
 
@@ -719,7 +720,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 【建议】除非你清除的知道自己在做什么。否则不建议将UIView类的对象加入到NSArray、NSDictionary、NSSet中。如有需要可以添加到NSMapTable 和 NSHashTable。因为NSArray、NSDictionary、NSSet会对加入的对象做strong引用（即使你把加入的对象进行了weak）。而NSMapTable、NSHashTable会对加入的对象做weak引用。
 说明：简单的说，NSHashTable相当于weak的NSMutableArray；NSMapTable相当于weak的NSMutableDictionary.
 
-###(2.14) 延迟调用规范
+### (2.14) 延迟调用规范
 
 【必须】performSelector:withObject:afterDelay:要在有Runloop的线程里调用，否则调用无法生效。
 说明：异步线程默认是没有runloop的，除非手动创建；而主线程是系统会自动创建Runloop的。所以在异步线程调用是请先确保该线程是有Runloop的。
@@ -738,7 +739,7 @@ if (!weakSelf) {
 [self doOther];
 ```
 
-###(2.15) 注释规范
+### (2.15) 注释规范
 【必须】如果方法、函数、类、属性等需要提供给外界或者他人使用，必须要加注释说明。
 
 【必须】如果你的代码以SDK的形式提供给其他人使用，那么接口的注释是必须的。必须对暴露给外界的所有方法、属性、参数加以注释说明。
@@ -747,7 +748,7 @@ if (!weakSelf) {
 
 【建议】因为方法或属性本身就具有自我描述性，注释应该简明扼要，说明是什么和为什么即可。 
 
-###(2.16) 类的设计规范
+### (2.16) 类的设计规范
 【建议】尽量减少继承，类的继承关系不要超过3层。可以考虑使用category、protocol来代替继承。
 
 【建议】把一些稳定的、公共的变量或者方法抽取到父类中。子类尽量只维持父类所不具备的特性和功能。
@@ -758,7 +759,7 @@ if (!weakSelf) {
 
 【建议】.h文件中只暴露出一些必要的类、公开的方法、只读属性；私有类、私有方法和私有属性以及成员变量，尽量写在.m文件中。
 
-###(2.17) 代码组织规范
+### (2.17) 代码组织规范
 
 参考 [raywenderlich/objective-c-style-guide](https://github.com/raywenderlich/objective-c-style-guide)
 
@@ -797,15 +798,6 @@ if (!weakSelf) {
 ```
 【建议】可以通过xcode 代码块功能快速加入某个部分的通用代码
 
-###(2.18) 工程结构规范
+### (2.18) 工程结构规范
 
 【必须】为了避免文件杂乱，物理文件应该保持和 Xcode 项目文件同步。Xcode 创建的任何组（group）都必须在文件系统有相应的映射。为了更清晰，代码不仅应该按照类型进行分组，也可以根据业务功能进行分组。
-
-```objc
-APPKIT_EXTERN NSString *NSPrintCopies;
-```
-
-| 命名	| 说明 |
-| :------ | :------ |
-|
-|
